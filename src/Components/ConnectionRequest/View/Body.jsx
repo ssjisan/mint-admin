@@ -193,19 +193,27 @@ export default function Body({
                         borderLeft: "4px solid #1976d2",
                       }}
                     >
-                      <Typography>
-                        <strong>Email:</strong> {data.email}
-                      </Typography>
-                      <Typography>
-                        <strong>Zone:</strong> {data.zone}
-                      </Typography>
-                      <Typography>
-                        <strong>Created At:</strong>{" "}
-                        {formatDateTime(data.createdAt)}
-                      </Typography>
-                      <Typography sx={{ gridColumn: "1/-1" }}>
-                        <strong>Address:</strong> {data.fullAddress}
-                      </Typography>
+                      {data?.email && (
+                        <Typography>
+                          <strong>Email:</strong> {data.email}
+                        </Typography>
+                      )}
+                      {data?.companyName && (
+                        <Typography>
+                          <strong>Company Name:</strong> {data.companyName}
+                        </Typography>
+                      )}
+                      {data?.createdAt && (
+                        <Typography>
+                          <strong>Created At:</strong>{" "}
+                          {formatDateTime(data.createdAt)}
+                        </Typography>
+                      )}
+                      {data?.fullAddress && (
+                        <Typography sx={{ gridColumn: "1/-1" }}>
+                          <strong>Address:</strong> {data?.fullAddress}
+                        </Typography>
+                      )}
                     </Stack>
                   </Collapse>
                 </TableCell>

@@ -24,7 +24,7 @@ export default function View() {
     { key: "name", label: "Name" },
     { key: "mobile", label: "Mobile" },
     { key: "package", label: "Package" },
-    { key: "packageType", label: "Connection Type" },
+    { key: "packageType", label: "Type" },
     { key: "status", label: "Status" },
     { key: "remarks", label: "Remarks" },
   ];
