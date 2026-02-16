@@ -79,7 +79,7 @@ export default function Login() {
               sx={{ textAlign: "center" }}
               color="text.secondary"
             >
-              Welcome to InsightTech Global portal
+              Welcome to CodeSenate portal
             </Typography>
           </Box>
           <InputFields />

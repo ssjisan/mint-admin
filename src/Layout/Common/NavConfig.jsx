@@ -1,6 +1,14 @@
 import { DataContext } from "../../DataProcessing/DataProcessing";
 import { useContext } from "react";
-import { Dashboard, Coverage, Package, ConnectionRequest, HappyClient } from "../../assets/IconSet";
+import {
+  Dashboard,
+  Coverage,
+  Package,
+  ConnectionRequest,
+  HappyClient,
+  Blog,
+  SuccessStories,
+} from "../../assets/IconSet";
 
 const navConfig = ({ pathname }) => {
   const { auth } = useContext(DataContext);
@@ -23,7 +31,10 @@ const navConfig = ({ pathname }) => {
     {
       title: "Connection Request",
       icon: (
-        <ConnectionRequest color={pathname === "/connection-request" ? "#792df8" : "#637381"} size={20} />
+        <ConnectionRequest
+          color={pathname === "/connection-request" ? "#792df8" : "#637381"}
+          size={20}
+        />
       ),
       items: [
         {
@@ -33,13 +44,12 @@ const navConfig = ({ pathname }) => {
       ],
     },
     {
-      title: "Coverage",
+      title: "Success Stories",
       icon: (
-        <Coverage
+        <SuccessStories
           color={
-            pathname.startsWith("/coverage-list") ||
-            pathname.startsWith("/add-coverage") ||
-            pathname.startsWith("/add-zone")
+            pathname.startsWith("/success-stories-editor") ||
+            pathname.startsWith("/success-stories-list")
               ? "#792df8"
               : "#637381"
           }
@@ -48,16 +58,12 @@ const navConfig = ({ pathname }) => {
       ),
       items: [
         {
-          title: "Add Zone",
-          link: "/add-zone",
+          title: "Editor",
+          link: "/success-stories-editor",
         },
         {
-          title: "Add Coverage",
-          link: "/add-coverage",
-        },
-        {
-          title: "Coverage List",
-          link: "/coverage-list",
+          title: "All Success Stories",
+          link: "/success-stories-list",
         },
       ],
     },
@@ -88,7 +94,10 @@ const navConfig = ({ pathname }) => {
     {
       title: "Client",
       icon: (
-        <HappyClient color={pathname === "/client" ? "#792df8" : "#637381"} size={20} />
+        <HappyClient
+          color={pathname === "/client" ? "#792df8" : "#637381"}
+          size={20}
+        />
       ),
       items: [
         {

@@ -13,7 +13,9 @@ import AddPackage from "../Page/Package/AddPackage";
 import PackageList from "../Page/Package/PackageList";
 import ConnectionRequest from "../Page/ConnectionRequest";
 import Client from "../Page/Client";
-
+import SuccessStoriesEditor from "../Page/SuccessStories/SuccessStoriesEditor";
+import SuccessStoriesList from "../Page/SuccessStories/SuccessStoriesList";
+import SuccessStoriesPreview from "../Page/SuccessStories/SuccessStoriesPreview";
 export default function MainRouters() {
   return (
     <>
@@ -54,17 +56,34 @@ export default function MainRouters() {
           {/* User Routes End */}
 
           {/* Coverage Area Route Start Here */}
-          <Route path="/add-coverage" element={<AddCoverageArea/>}/>
-          <Route path="/edit-coverage/:id" element={<AddCoverageArea/>}/>
-          <Route path="/coverage-list" element={<CoverageAreaList/>}/>
-          <Route path="/add-zone" element={<AddZone/>}/>
+          <Route path="/add-coverage" element={<AddCoverageArea />} />
+          <Route path="/edit-coverage/:id" element={<AddCoverageArea />} />
+          <Route path="/coverage-list" element={<CoverageAreaList />} />
+          <Route path="/add-zone" element={<AddZone />} />
           {/* Coverage Area Route End Here */}
 
           {/* Coverage Area Route Start Here */}
-          <Route path="/package-list" element={<PackageList/>}/>
-          <Route path="/add-package" element={<AddPackage/>}/>
-          <Route path="/edit-package/:id" element={<AddPackage/>}/>
+          <Route path="/package-list" element={<PackageList />} />
+          <Route path="/add-package" element={<AddPackage />} />
+          <Route path="/edit-package/:id" element={<AddPackage />} />
           {/* Coverage Area Route End Here */}
+
+          <Route
+            path="/success-stories-editor"
+            element={<SuccessStoriesEditor />}
+          />
+          <Route
+            path="/success-stories-editor/:id"
+            element={<SuccessStoriesEditor />}
+          />
+          <Route
+            path="/success-stories-list"
+            element={<SuccessStoriesList />}
+          />
+          <Route
+            path="/success-stories-preview/:id"
+            element={<SuccessStoriesPreview />}
+          />
         </Route>
         {/* <Route path="*" element={<ErrorPage />} replace /> */}
       </Routes>
