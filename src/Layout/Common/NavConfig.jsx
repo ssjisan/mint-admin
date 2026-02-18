@@ -126,21 +126,6 @@ const navConfig = ({ pathname }) => {
         },
       ],
     },
-    {
-      title: "Client",
-      icon: (
-        <HappyClient
-          color={pathname === "/client" ? "#792df8" : "#637381"}
-          size={20}
-        />
-      ),
-      items: [
-        {
-          title: "Client",
-          link: "/client",
-        },
-      ],
-    },
   ];
 
   // Only show Students for role 2
