@@ -16,6 +16,7 @@ import Client from "../Page/Client";
 import SuccessStoriesEditor from "../Page/SuccessStories/SuccessStoriesEditor";
 import SuccessStoriesList from "../Page/SuccessStories/SuccessStoriesList";
 import SuccessStoriesPreview from "../Page/SuccessStories/SuccessStoriesPreview";
+import Brand from "../Page/Brand";
 export default function MainRouters() {
   return (
     <>
@@ -48,6 +49,7 @@ export default function MainRouters() {
         <Route path="" element={<PrivateRoute />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/client" element={<Client />} />
+          <Route path="/brands" element={<Brand />} />
           <Route path="/connection-request" element={<ConnectionRequest />} />
           {/* User Routes Start */}
           <Route path="/create_use" element={<AddUser />} />

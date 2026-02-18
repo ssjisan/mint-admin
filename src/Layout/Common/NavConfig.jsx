@@ -8,6 +8,7 @@ import {
   HappyClient,
   Blog,
   SuccessStories,
+  Product,
 } from "../../assets/IconSet";
 
 const navConfig = ({ pathname }) => {
@@ -40,6 +41,40 @@ const navConfig = ({ pathname }) => {
         {
           title: "Connection Request",
           link: "/connection-request",
+        },
+      ],
+    },
+    {
+      title: "Product",
+      icon: (
+        <Product
+          color={
+            pathname.startsWith("/product-list") ||
+            pathname.startsWith("/product-setup") ||
+            pathname.startsWith("/brands") ||
+            pathname.startsWith("/category")
+              ? "#792df8"
+              : "#637381"
+          }
+          size={20}
+        />
+      ),
+      items: [
+        {
+          title: "Product List",
+          link: "/product-list",
+        },
+        {
+          title: "Product Setup",
+          link: "/product-setup",
+        },
+        {
+          title: "Brands",
+          link: "/brands",
+        },
+        {
+          title: "Category",
+          link: "/category",
         },
       ],
     },
