@@ -15,6 +15,7 @@ import ConnectionRequest from "../Page/ConnectionRequest";
 import SuccessStoriesEditor from "../Page/SuccessStories/SuccessStoriesEditor";
 import SuccessStoriesList from "../Page/SuccessStories/SuccessStoriesList";
 import SuccessStoriesPreview from "../Page/SuccessStories/SuccessStoriesPreview";
+import ProductList from "../Page/Product/ProductList";
 import Brand from "../Page/Brand";
 import Category from "../Page/Category";
 import ProductSetup from "../Page/Product/ProductSetup";
@@ -52,6 +53,8 @@ export default function MainRouters() {
           <Route path="/brands" element={<Brand />} />
           <Route path="/category" element={<Category />} />
           <Route path="/product-setup" element={<ProductSetup />} />
+          <Route path="/product-setup/:id" element={<ProductSetup />} />
+          <Route path="/product-list" element={<ProductList />} />
 
           <Route path="/connection-request" element={<ConnectionRequest />} />
           {/* User Routes Start */}

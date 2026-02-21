@@ -3,11 +3,25 @@ import {
   CardContent,
   Grid,
   MenuItem,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
+import MyEditor from "../../Editor/Editor";
+import { useState } from "react";
 
-export default function Basic({ brands, categories, formData, setFormData }) {
+export default function Basic({
+  brands,
+  categories,
+  formData,
+  setFormData,
+  descriptionEditorKey,
+  descriptionEditorValue,
+  setDescriptionEditorValue,
+  setDescriptionHtmlOutput,
+  descriptionEditorUploadedImages,
+  setDescriptionEditorUploadedImages,
+}) {
   const cardStyle = {
     mb: 4,
     borderRadius: 3,
@@ -82,15 +96,19 @@ export default function Basic({ brands, categories, formData, setFormData }) {
 
           {/* Description (temporary plain text) */}
           <Grid item xs={12}>
-            <TextField
-              fullWidth
-              multiline
-              rows={4}
-              label="Description"
-              name="descriptionHTML"
-              value={formData.descriptionHTML}
-              onChange={handleChange}
-            />
+            <Stack>
+              <Typography variant="body">Description</Typography>
+              <MyEditor
+                key={descriptionEditorKey}
+                value={descriptionEditorValue}
+                onChangeValue={(json, html) => {
+                  setDescriptionEditorValue(json);
+                  setDescriptionHtmlOutput(html);
+                }}
+                uploadedImages={descriptionEditorUploadedImages}
+                setUploadedImages={setDescriptionEditorUploadedImages}
+              />
+            </Stack>
           </Grid>
         </Grid>
       </CardContent>
