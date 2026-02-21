@@ -16,6 +16,8 @@ import SuccessStoriesEditor from "../Page/SuccessStories/SuccessStoriesEditor";
 import SuccessStoriesList from "../Page/SuccessStories/SuccessStoriesList";
 import SuccessStoriesPreview from "../Page/SuccessStories/SuccessStoriesPreview";
 import Brand from "../Page/Brand";
+import Category from "../Page/Category";
+import ProductSetup from "../Page/Product/ProductSetup";
 export default function MainRouters() {
   return (
     <>
@@ -48,6 +50,9 @@ export default function MainRouters() {
         <Route path="" element={<PrivateRoute />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/brands" element={<Brand />} />
+          <Route path="/category" element={<Category />} />
+          <Route path="/product-setup" element={<ProductSetup />} />
+
           <Route path="/connection-request" element={<ConnectionRequest />} />
           {/* User Routes Start */}
           <Route path="/create_use" element={<AddUser />} />
