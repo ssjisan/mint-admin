@@ -1,4 +1,5 @@
 import { Button, Card, CardContent, Grid, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 
 export default function Image({
   handleImageUpload,
@@ -61,3 +62,12 @@ export default function Image({
     </Card>
   );
 }
+Image.propTypes = {
+  handleImageUpload: PropTypes.func.isRequired,
+
+  images: PropTypes.arrayOf(PropTypes.instanceOf(File)).isRequired,
+
+  thumbnailIndex: PropTypes.number.isRequired,
+
+  setThumbnailIndex: PropTypes.func.isRequired,
+};

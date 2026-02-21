@@ -8,6 +8,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import PropTypes from "prop-types";
 
 export default function Price({ formData, setFormData }) {
   const cardStyle = {
@@ -99,3 +100,16 @@ export default function Price({ formData, setFormData }) {
     </Card>
   );
 }
+Price.propTypes = {
+  formData: PropTypes.shape({
+    price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+
+    showPrice: PropTypes.bool.isRequired,
+
+    discountType: PropTypes.oneOf(["none", "percentage", "fixed"]).isRequired,
+
+    discountValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  }).isRequired,
+
+  setFormData: PropTypes.func.isRequired,
+};

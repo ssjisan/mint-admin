@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import MyEditor from "../../Editor/Editor";
-import { useState } from "react";
+import PropTypes from "prop-types";
 
 export default function Basic({
   brands,
@@ -115,3 +115,41 @@ export default function Basic({
     </Card>
   );
 }
+Basic.propTypes = {
+  brands: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+
+  formData: PropTypes.shape({
+    name: PropTypes.string,
+    brand: PropTypes.string,
+    category: PropTypes.string,
+  }).isRequired,
+
+  setFormData: PropTypes.func.isRequired,
+
+  descriptionEditorKey: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+
+  descriptionEditorValue: PropTypes.any,
+
+  setDescriptionEditorValue: PropTypes.func.isRequired,
+
+  setDescriptionHtmlOutput: PropTypes.func.isRequired,
+
+  descriptionEditorUploadedImages: PropTypes.array,
+
+  setDescriptionEditorUploadedImages: PropTypes.func.isRequired,
+};

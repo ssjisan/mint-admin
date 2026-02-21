@@ -6,6 +6,7 @@ import {
   Button,
   Switch,
   FormControlLabel,
+  Typography,
 } from "@mui/material";
 import Basic from "./Form/Basic";
 import Price from "./Form/Price";
@@ -220,7 +221,9 @@ export default function SetupForm() {
       toast.error(error);
     }
   };
-
+  if (loading) {
+    return <Typography>Loading....</Typography>;
+  }
   return (
     <Container maxWidth="md" sx={{ py: 5 }}>
       <Basic

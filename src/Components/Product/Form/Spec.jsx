@@ -9,6 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Plus, Remove } from "../../../assets/IconSet";
+import PropTypes from "prop-types";
 
 export default function Spec({
   specifications,
@@ -114,3 +115,23 @@ export default function Spec({
     </Card>
   );
 }
+Spec.propTypes = {
+  specifications: PropTypes.arrayOf(
+    PropTypes.shape({
+      groupTitle: PropTypes.string.isRequired,
+      items: PropTypes.arrayOf(
+        PropTypes.shape({
+          label: PropTypes.string.isRequired,
+          value: PropTypes.string.isRequired,
+        }),
+      ).isRequired,
+    }),
+  ).isRequired,
+
+  handleGroupTitleChange: PropTypes.func.isRequired,
+  handleSpecChange: PropTypes.func.isRequired,
+  removeItem: PropTypes.func.isRequired,
+  addItem: PropTypes.func.isRequired,
+  removeGroup: PropTypes.func.isRequired,
+  addGroup: PropTypes.func.isRequired,
+};
