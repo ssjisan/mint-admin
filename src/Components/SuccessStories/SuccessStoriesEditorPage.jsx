@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Container, Stack, TextField, Button, Box } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
 import Editor from "../Editor/Editor";
-import axios from "axios";
+import axios from "../../api/axios";
 import toast from "react-hot-toast";
 
 export default function SuccessStoriesEditorPage() {

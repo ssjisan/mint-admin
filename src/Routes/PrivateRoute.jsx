@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../DataProcessing/DataProcessing";
 import { Outlet } from "react-router-dom";
-import axios from "axios";
+import axios from "../api/axios";
 import Loading from "./Loading";
 
 export default function PrivateRoute() {
@@ -20,7 +20,6 @@ export default function PrivateRoute() {
     };
     if (auth?.token) authCheck();
   }, [auth?.token]);
-
 
   return isUserLoggedIn ? <Outlet /> : <Loading />;
 }

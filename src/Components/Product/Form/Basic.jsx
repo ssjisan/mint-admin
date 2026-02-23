@@ -21,6 +21,12 @@ export default function Basic({
   setDescriptionHtmlOutput,
   descriptionEditorUploadedImages,
   setDescriptionEditorUploadedImages,
+  shortDescriptionEditorKey,
+  shortDescriptionEditorValue,
+  setShortDescriptionEditorValue,
+  setShortDescriptionHtmlOutput,
+  shortDescriptionEditorUploadedImages,
+  setShortDescriptionEditorUploadedImages,
 }) {
   const cardStyle = {
     mb: 4,
@@ -93,13 +99,31 @@ export default function Basic({
               ))}
             </TextField>
           </Grid>
-
+          <Grid item xs={12}>
+            <Stack>
+              <Typography fontSize={14} fontWeight={700}>
+                Short Description
+              </Typography>
+              <MyEditor
+                key={`short-${shortDescriptionEditorKey}`}
+                value={shortDescriptionEditorValue}
+                onChangeValue={(json, html) => {
+                  setShortDescriptionEditorValue(json);
+                  setShortDescriptionHtmlOutput(html);
+                }}
+                uploadedImages={shortDescriptionEditorUploadedImages}
+                setUploadedImages={setShortDescriptionEditorUploadedImages}
+              />
+            </Stack>
+          </Grid>
           {/* Description (temporary plain text) */}
           <Grid item xs={12}>
             <Stack>
-              <Typography variant="body">Description</Typography>
+              <Typography fontSize={14} fontWeight={700}>
+                Description
+              </Typography>
               <MyEditor
-                key={descriptionEditorKey}
+                key={`long-${descriptionEditorKey}`}
                 value={descriptionEditorValue}
                 onChangeValue={(json, html) => {
                   setDescriptionEditorValue(json);
@@ -152,4 +176,13 @@ Basic.propTypes = {
   descriptionEditorUploadedImages: PropTypes.array,
 
   setDescriptionEditorUploadedImages: PropTypes.func.isRequired,
+  shortDescriptionEditorKey: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+  shortDescriptionEditorValue: PropTypes.any,
+  setShortDescriptionEditorValue: PropTypes.func.isRequired,
+  setShortDescriptionHtmlOutput: PropTypes.func.isRequired,
+  shortDescriptionEditorUploadedImages: PropTypes.array,
+  setShortDescriptionEditorUploadedImages: PropTypes.func.isRequired,
 };

@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { ArrowRight } from "../../../assets/IconSet";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../api/axios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 export default function UpcomingEvents() {
@@ -20,8 +20,8 @@ export default function UpcomingEvents() {
   };
   const formatDate = (dateString) => {
     const date = new Date(dateString);
-    const options = { day: 'numeric', month: 'short', year: 'numeric' };
-    return new Intl.DateTimeFormat('en-GB', options).format(date);
+    const options = { day: "numeric", month: "short", year: "numeric" };
+    return new Intl.DateTimeFormat("en-GB", options).format(date);
   };
   return (
     <Box

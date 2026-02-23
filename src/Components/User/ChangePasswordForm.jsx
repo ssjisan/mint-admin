@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { EyeOff, EyeOn } from "../../assets/IconSet";
 import { useContext, useState } from "react";
-import axios from "axios";
+import axios from "../../api/axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { DataContext } from "../../DataProcessing/DataProcessing";

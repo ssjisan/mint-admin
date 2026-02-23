@@ -1,12 +1,12 @@
-import axios from "axios";
+import axios from "../../api/axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function VideosData() {
   const [videos, setVideos] = useState([]);
 
- // Load Videos Start //
- useEffect(() => {
+  // Load Videos Start //
+  useEffect(() => {
     const storedAuth = localStorage.getItem("auth");
     const parsedAuth = storedAuth ? JSON.parse(storedAuth) : null;
 

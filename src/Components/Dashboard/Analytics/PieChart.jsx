@@ -2,20 +2,20 @@ import { useEffect, useState } from "react";
 import { Typography, useMediaQuery, CircularProgress } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import Chart from "react-apexcharts";
-import axios from "axios";
+import axios from "../../api/axios";
 
 export default function PieChart() {
   const isSmallScreen = useMediaQuery("(max-width:776px)");
-  const [series, setSeries] = useState([0, 0, 0,0]);
+  const [series, setSeries] = useState([0, 0, 0, 0]);
   const [loading, setLoading] = useState(true); // 🔄
-  const [rawCounts, setRawCounts] = useState([0, 0, 0,0]);
+  const [rawCounts, setRawCounts] = useState([0, 0, 0, 0]);
   const options = {
     chart: {
       type: "pie",
       fontFamily: "Public Sans, sans-serif",
     },
     labels: ["Approved", "Pending", "Wrong Entry", "Account Not Complete"],
-    colors: ["#00a76f", "#ffd666", "#ff5630","#006c9c"],
+    colors: ["#00a76f", "#ffd666", "#ff5630", "#006c9c"],
     legend: {
       show: false,
     },
@@ -35,7 +35,7 @@ export default function PieChart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("/all-student");  
+        const { data } = await axios.get("/all-student");
         const summary = data.summary;
         const {
           total = 0,
@@ -44,8 +44,14 @@ export default function PieChart() {
           wrongEntry = 0,
           accountNotComplete = 0,
         } = summary || {};
-  
-        if (!total || (approved === 0 && pending === 0 && wrongEntry === 0 && accountNotComplete === 0)) {
+
+        if (
+          !total ||
+          (approved === 0 &&
+            pending === 0 &&
+            wrongEntry === 0 &&
+            accountNotComplete === 0)
+        ) {
           setSeries([100]);
           setRawCounts([0]);
         } else {
@@ -53,20 +59,10 @@ export default function PieChart() {
           const pendingPct = ((pending / total) * 100).toFixed(2);
           const wrongPct = ((wrongEntry / total) * 100).toFixed(2);
           const incompletePct = ((accountNotComplete / total) * 100).toFixed(2);
-  
-          setSeries([
-            +approvedPct,
-            +pendingPct,
-            +wrongPct,
-            +incompletePct,
-          ]);
-  
-          setRawCounts([
-            approved,
-            pending,
-            wrongEntry,
-            accountNotComplete,
-          ]);
+
+          setSeries([+approvedPct, +pendingPct, +wrongPct, +incompletePct]);
+
+          setRawCounts([approved, pending, wrongEntry, accountNotComplete]);
         }
       } catch (error) {
         console.error("Error fetching student status summary:", error);
@@ -76,10 +72,9 @@ export default function PieChart() {
         setLoading(false);
       }
     };
-  
+
     fetchData();
   }, []);
-  
 
   const chartLabels = options.labels.map((label, index) => (
     <Box

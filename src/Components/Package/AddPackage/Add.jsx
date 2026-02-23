@@ -2,7 +2,7 @@ import { Box, Stack, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import axios from "../../../api/axios";
 
 import Form from "./Form";
 

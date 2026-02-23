@@ -72,8 +72,11 @@ export default function AccountPopOver() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setAuth({ ...auth, user: null, token: "" });
-    localStorage.removeItem("auth");
+    setAuth({
+      user: null,
+      token: "",
+    });
+    sessionStorage.removeItem("auth");
     navigate("/login");
   };
   return (
@@ -89,7 +92,10 @@ export default function AccountPopOver() {
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <Avatar src="https://res.cloudinary.com/dmyttqosa/image/upload/v1745492633/avatar_etniw4.jpg" sx={AvatarSx}></Avatar>
+        <Avatar
+          src="https://res.cloudinary.com/dmyttqosa/image/upload/v1745492633/avatar_etniw4.jpg"
+          sx={AvatarSx}
+        ></Avatar>
       </IconButton>
       <Box>
         <Menu
@@ -116,8 +122,8 @@ export default function AccountPopOver() {
               {auth?.user?.role === 0
                 ? "Super Admin"
                 : auth?.user?.role === 1
-                ? "Admin"
-                : "Moderator"}{" "}
+                  ? "Admin"
+                  : "Moderator"}{" "}
             </Typography>
           </Box>
           <Divider variant="middle" sx={{ borderStyle: "dashed" }} />

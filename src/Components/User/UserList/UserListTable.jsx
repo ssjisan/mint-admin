@@ -2,7 +2,7 @@ import { Box, Table, TableContainer } from "@mui/material";
 import Header from "./Table/Header";
 import Body from "./Table/Body";
 import { useEffect, useState, useContext } from "react";
-import axios from "axios";
+import axios from "../../../api/axios";
 import toast from "react-hot-toast";
 import Pagination from "./Table/Pagination";
 import { DataContext } from "../../../DataProcessing/DataProcessing";
@@ -46,7 +46,7 @@ export default function UserListTable() {
       // Check if the selected user is the logged-in Super Admin
       if (selectedUser.role === 0 && selectedUser._id === auth.user._id) {
         toast.error(
-          "You are a Super Admin, you can't remove your own account."
+          "You are a Super Admin, you can't remove your own account.",
         );
         return;
       }

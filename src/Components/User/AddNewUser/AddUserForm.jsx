@@ -14,7 +14,7 @@ import { useContext, useState } from "react";
 import { DataContext } from "../../../DataProcessing/DataProcessing";
 import { ArrowDown, EyeOff, EyeOn } from "../../../assets/IconSet";
 import toast from "react-hot-toast";
-import axios from "axios";
+import axios from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 export default function AddUserForm() {
   const { showPassword, handleClickShowPassword, handleMouseDownPassword } =

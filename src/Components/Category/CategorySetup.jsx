@@ -3,7 +3,7 @@ import ConfirmationModal from "../Common/RemoveConfirmation/ConfirmationModal";
 import { useEffect, useState } from "react";
 import Form from "./Form";
 import toast from "react-hot-toast";
-import axios from "axios";
+import axios from "../../api/axios";
 import List from "./List";
 
 export default function CategorySetup() {

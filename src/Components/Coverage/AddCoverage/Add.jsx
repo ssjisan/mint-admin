@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import axios from "../../../api/axios";
 
 import Form from "./Form";
 import Map from "./Map";
@@ -65,37 +65,36 @@ export default function Area() {
   };
 
   const handleSaveArea = async () => {
-  if (!areaName || !zone || !address || polygons.length === 0) {
-    toast.error("Please fill all required fields including polygons.");
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append("areaName", areaName);
-  formData.append("zone", zone);
-  formData.append("address", address);
-  formData.append("polygons", JSON.stringify(polygons));
-  if (image) formData.append("file", image);
-  if (id) formData.append("id", id); // Important: tell backend it's an update
-
-  const toastId = toast.loading(id ? "Updating area..." : "Saving area...");
-
-  try {
-    const res = await axios.post("/save-area", formData);
-    toast.dismiss(toastId);
-
-    if (res.data.error) {
-      toast.error(res.data.error);
-    } else {
-      toast.success(res.data.message || "Success!");
-      navigate("/coverage-list");
+    if (!areaName || !zone || !address || polygons.length === 0) {
+      toast.error("Please fill all required fields including polygons.");
+      return;
     }
-  } catch (error) {
-    toast.dismiss(toastId);
-    toast.error(error.response?.data?.error || "Failed to save area.");
-  }
-};
 
+    const formData = new FormData();
+    formData.append("areaName", areaName);
+    formData.append("zone", zone);
+    formData.append("address", address);
+    formData.append("polygons", JSON.stringify(polygons));
+    if (image) formData.append("file", image);
+    if (id) formData.append("id", id); // Important: tell backend it's an update
+
+    const toastId = toast.loading(id ? "Updating area..." : "Saving area...");
+
+    try {
+      const res = await axios.post("/save-area", formData);
+      toast.dismiss(toastId);
+
+      if (res.data.error) {
+        toast.error(res.data.error);
+      } else {
+        toast.success(res.data.message || "Success!");
+        navigate("/coverage-list");
+      }
+    } catch (error) {
+      toast.dismiss(toastId);
+      toast.error(error.response?.data?.error || "Failed to save area.");
+    }
+  };
 
   return (
     <Box p={3}>

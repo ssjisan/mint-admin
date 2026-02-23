@@ -19,6 +19,7 @@ import ProductList from "../Page/Product/ProductList";
 import Brand from "../Page/Brand";
 import Category from "../Page/Category";
 import ProductSetup from "../Page/Product/ProductSetup";
+import ProductPreview from "../Page/Product/ProductPreview";
 export default function MainRouters() {
   return (
     <>
@@ -55,6 +56,7 @@ export default function MainRouters() {
           <Route path="/product-setup" element={<ProductSetup />} />
           <Route path="/product-setup/:id" element={<ProductSetup />} />
           <Route path="/product-list" element={<ProductList />} />
+          <Route path="/product/:id" element={<ProductPreview />} />
 
           <Route path="/connection-request" element={<ConnectionRequest />} />
           {/* User Routes Start */}

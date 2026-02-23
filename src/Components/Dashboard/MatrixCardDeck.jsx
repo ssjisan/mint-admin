@@ -1,6 +1,6 @@
 import { Box, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../api/axios";
 import { toast } from "react-hot-toast";
 // import HighestRequest from "./MatrixCard/HighestRequest";
 import TotalArea from "./MatrixCard/TotalArea";

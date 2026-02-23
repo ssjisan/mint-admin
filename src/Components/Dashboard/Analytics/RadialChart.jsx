@@ -7,7 +7,7 @@ import {
   Button,
 } from "@mui/material";
 import Chart from "react-apexcharts";
-import axios from "axios";
+import axios from "../../api/axios";
 import Papa from "papaparse";
 import toast from "react-hot-toast";
 
@@ -72,63 +72,69 @@ export default function RadialChart() {
     fetchData();
   }, []);
 
- const handleDownload = async () => {
-  setDownloading(true);
-  try {
-    const { data } = await axios.get("/account-not-complete");
+  const handleDownload = async () => {
+    setDownloading(true);
+    try {
+      const { data } = await axios.get("/account-not-complete");
 
-    const students = data || [];
+      const students = data || [];
 
-    if (!Array.isArray(students) || students.length === 0) {
-      toast.error("No student data found for 'Account Not Complete'.");
-      return;
+      if (!Array.isArray(students) || students.length === 0) {
+        toast.error("No student data found for 'Account Not Complete'.");
+        return;
+      }
+
+      const now = new Date();
+      const formattedDate = `${now.getFullYear()}_${String(now.getMonth() + 1).padStart(2, "0")}_${String(now.getDate()).padStart(2, "0")}`;
+      const formattedTime =
+        now.getHours().toString().padStart(2, "0") +
+        now.getMinutes().toString().padStart(2, "0");
+      const fileName = `Account_Not_Complete_Students_${formattedDate}_${formattedTime}.csv`;
+
+      // Flatten data
+      const flattenedData = students.map((student) => ({
+        Name: student.name || "",
+        Email: student.email || "",
+        "Contact Number": student.contactNumber || "",
+        BMDCNO: student.bmdcNo || "",
+        "AOA No": student.aoaNo || "",
+        "BMDC Verified": student.isBmdcVerified ? "Yes" : "No",
+        "Email Verified": student.isEmailVerified ? "Yes" : "No",
+        "Account Verified": student.isAccountVerified ? "Yes" : "No",
+        Remarks: student.remarks || "",
+        "Post-Graduation Degree":
+          student.postGraduationDegrees
+            ?.map((deg) => deg.degreeName)
+            .join(", ") || "",
+        "Post-Graduation Year":
+          student.postGraduationDegrees
+            ?.map((deg) => deg.yearOfGraduation)
+            .join(", ") || "",
+        "Current Working Place":
+          student.currentWorkingPlace
+            ?.map((place) => place.name || place)
+            .join(", ") || "",
+        Courses: student.courses?.join(", ") || "",
+        "Picture Uploaded": student.picture?.length ? "Yes" : "No",
+      }));
+
+      const csv = Papa.unparse(flattenedData);
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Failed to download data:", error);
+      toast.error("Failed to download student data.");
+    } finally {
+      setDownloading(false);
     }
-
-    const now = new Date();
-    const formattedDate = `${now.getFullYear()}_${String(now.getMonth() + 1).padStart(2, "0")}_${String(now.getDate()).padStart(2, "0")}`;
-    const formattedTime = now.getHours().toString().padStart(2, "0") + now.getMinutes().toString().padStart(2, "0");
-    const fileName = `Account_Not_Complete_Students_${formattedDate}_${formattedTime}.csv`;
-
-    // Flatten data
-    const flattenedData = students.map((student) => ({
-      Name: student.name || "",
-      Email: student.email || "",
-      "Contact Number": student.contactNumber || "",
-      BMDCNO: student.bmdcNo || "",
-      "AOA No": student.aoaNo || "",
-      "BMDC Verified": student.isBmdcVerified ? "Yes" : "No",
-      "Email Verified": student.isEmailVerified ? "Yes" : "No",
-      "Account Verified": student.isAccountVerified ? "Yes" : "No",
-      Remarks: student.remarks || "",
-      "Post-Graduation Degree":
-        student.postGraduationDegrees?.map((deg) => deg.degreeName).join(", ") || "",
-      "Post-Graduation Year":
-        student.postGraduationDegrees?.map((deg) => deg.yearOfGraduation).join(", ") || "",
-      "Current Working Place":
-        student.currentWorkingPlace?.map((place) => place.name || place).join(", ") || "",
-      "Courses": student.courses?.join(", ") || "",
-      "Picture Uploaded": student.picture?.length ? "Yes" : "No",
-    }));
-
-    const csv = Papa.unparse(flattenedData);
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", fileName);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  } catch (error) {
-    console.error("Failed to download data:", error);
-    toast.error("Failed to download student data.");
-  } finally {
-    setDownloading(false);
-  }
-};
-
-
+  };
 
   const chartData = [
     {

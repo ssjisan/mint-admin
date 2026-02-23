@@ -1,7 +1,7 @@
 import { Grid, useMediaQuery } from "@mui/material";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import axios from "axios";
+import axios from "../../../api/axios";
 import Form from "./Form";
 import View from "./View";
 import ConfirmationModal from "../../Common/RemoveConfirmation/ConfirmationModal";

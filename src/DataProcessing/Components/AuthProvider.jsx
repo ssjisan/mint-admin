@@ -5,17 +5,22 @@ export default function AuthProvider() {
     user: null,
     token: "",
   });
+
   useEffect(() => {
-    const data = localStorage.getItem("auth");
+    const data = sessionStorage.getItem("auth");
+
     if (data) {
       const parsedData = JSON.parse(data);
-      setAuth({ ...auth, token: parsedData.token, user: parsedData.user });
+
+      setAuth({
+        user: parsedData.user,
+        token: parsedData.token,
+      });
     }
   }, []);
+
   return {
     auth,
     setAuth,
   };
 }
-
-

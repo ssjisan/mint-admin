@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import axios from "axios";
+import axios from "../../../api/axios";
 import { Box, Table } from "@mui/material";
 import CustomeHeader from "../../Common/Table/CustomeHeader";
 import CustomePagination from "../../Common/Table/CustomePagination";

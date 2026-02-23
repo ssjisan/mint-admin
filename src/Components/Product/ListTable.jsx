@@ -2,7 +2,7 @@ import { Box, Table } from "@mui/material";
 import CustomeHeader from "../Common/Table/CustomeHeader";
 import Body from "./Table/Body";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../api/axios";
 
 import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../Common/RemoveConfirmation/ConfirmationModal";
@@ -63,7 +63,7 @@ export default function ListTable() {
   };
 
   const redirectPreview = (id) => {
-    navigate(`/products/preview/${id}`);
+    navigate(`/product/${id}`);
   };
 
   const handleRemove = async () => {

@@ -9,10 +9,9 @@ import {
 import TableCell from "@mui/material/TableCell";
 import PropTypes from "prop-types";
 import { Update, Remove, More } from "../../../../assets/IconSet";
-import RemoveUserModal from "../../Components/RemoveUserModal";
 import { useContext, useState } from "react";
 import { DataContext } from "../../../../DataProcessing/DataProcessing";
-import axios from "axios";
+import axios from "../../../../api/axios";
 import toast from "react-hot-toast";
 
 export default function Body({
@@ -61,8 +60,8 @@ export default function Body({
               {data.role === 0
                 ? "Super Admin"
                 : data.role === 1
-                ? "Admin"
-                : "Moderator"}
+                  ? "Admin"
+                  : "Moderator"}
             </TableCell>
             <TableCell align="center">
               <Tooltip title="actions">

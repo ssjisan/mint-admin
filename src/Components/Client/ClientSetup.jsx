@@ -3,7 +3,7 @@ import ConfirmationModal from "../Common/RemoveConfirmation/ConfirmationModal";
 import { useEffect, useRef, useState } from "react";
 import Form from "./Form";
 import toast from "react-hot-toast";
-import axios from "axios";
+import axios from "../../api/axios";
 import List from "./List";
 
 export default function ClientSetup() {
@@ -69,7 +69,7 @@ export default function ClientSetup() {
     if (editingId) formData.append("id", editingId);
 
     const loadingToast = toast.loading(
-      editingId ? "Updating..." : "Uploading..."
+      editingId ? "Updating..." : "Uploading...",
     );
 
     try {
@@ -79,13 +79,13 @@ export default function ClientSetup() {
         editingId
           ? "Client updated successfully!"
           : "Client added successfully!",
-        { id: loadingToast }
+        { id: loadingToast },
       );
 
       setClients((prev) =>
         editingId
           ? prev.map((c) => (c._id === editingId ? data.client : c))
-          : [data.client, ...(prev || [])]
+          : [data.client, ...(prev || [])],
       );
 
       setName("");
@@ -113,7 +113,7 @@ export default function ClientSetup() {
       toast.success("Client deleted successfully.", { id: loadingToast });
 
       setClients((prev) =>
-        prev?.filter((client) => client._id !== dataToDelete._id)
+        prev?.filter((client) => client._id !== dataToDelete._id),
       );
 
       setSelectedRowId(null);

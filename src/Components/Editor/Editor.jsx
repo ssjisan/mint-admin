@@ -13,11 +13,12 @@ import { withHistory } from "slate-history";
 import EditorToolbar from "./EditorToolbar";
 import PropTypes from "prop-types";
 import { useSelected, useFocused, ReactEditor } from "slate-react";
-import axios from "axios";
+import axios from "../../api/axios";
 
 const ImageElement = ({ attributes, children, element, editor }) => {
   const selected = useSelected();
   const focused = useFocused();
+  console.log("Image URL:", element.url);
   const removeTempImage = async (filename) => {
     await axios.delete(`/editor-image/${filename}`);
   };
@@ -200,6 +201,16 @@ const isAlignActive = (editor, format) => {
 
 // Add this to your helper functions
 const insertImage = (editor, url, filename) => {
+  // 1. Force Focus
+  ReactEditor.focus(editor);
+
+  // 2. If no selection exists (e.g., user clicked button without clicking text)
+  // we force it to the end of the current editor's document
+  if (!editor.selection) {
+    const end = Editor.end(editor, []);
+    Transforms.select(editor, end);
+  }
+
   const image = {
     type: "image",
     url,
@@ -207,11 +218,15 @@ const insertImage = (editor, url, filename) => {
     children: [{ text: "" }],
   };
 
+  // 3. Insert and add a line break
   Transforms.insertNodes(editor, image);
   Transforms.insertNodes(editor, {
     type: "paragraph",
     children: [{ text: "" }],
   });
+
+  // 4. Move cursor to the new paragraph
+  Transforms.collapse(editor, { edge: "end" });
 };
 
 // This "plugin" is essential: it tells Slate not to treat the image as text
@@ -287,7 +302,9 @@ const serialize = (node) => {
   }
 };
 
-// --- 3. Main Component ---
+// ---------------------
+// --- Main Component ---
+// ---------------------
 
 export default function MyEditor({
   value: propValue,
@@ -299,9 +316,7 @@ export default function MyEditor({
     () => withImages(withHistory(withReact(createEditor()))),
     [],
   );
-  const [editorValue, setEditorValue] = useState(
-    propValue || [{ type: "paragraph", children: [{ text: "" }] }],
-  );
+  // Ensure the withImages plugin is correctly defined (put this outside or inside the component)
 
   const [, forceRender] = useState({});
   const handleImageUpload = async (file) => {
@@ -310,32 +325,25 @@ export default function MyEditor({
 
     try {
       const res = await axios.post("/editor-image", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       const { url, filename } = res.data;
 
+      // Call the updated helper with the LOCAL editor instance
       insertImage(editor, url, filename);
 
-      // Save filename for cleanup later
       setUploadedImages((prev) => [...prev, filename]);
     } catch (error) {
       console.error("Image upload failed:", error);
-
-      if (error.response) {
-        alert(error.response.data.message || "Image upload failed");
-      } else {
-        alert("Server not responding");
-      }
+      alert(error.response?.data?.message || "Upload failed");
     }
   };
   // eslint-disable-next-line
-  const htmlOutput = useMemo(
-    () => editorValue.map((node) => serialize(node)).join(""),
-    [editorValue],
-  );
+  // const htmlOutput = useMemo(
+  //   () => editorValue.map((node) => serialize(node)).join(""),
+  //   [editorValue],
+  // );
   const elementStyle = {
     margin: "0 0 10px 0", // Bottom margin only for spacing between blocks
     lineHeight: "1.2", // Tighter line height to keep cursor/placeholder aligned
@@ -362,12 +370,12 @@ export default function MyEditor({
     >
       <Slate
         editor={editor}
-        initialValue={editorValue}
+        initialValue={
+          propValue || [{ type: "paragraph", children: [{ text: "" }] }]
+        }
         onChange={(newValue) => {
-          setEditorValue(newValue);
-          forceRender({});
           if (onChangeValue) {
-            const html = newValue.map((node) => serialize(node)).join(""); // fresh HTML
+            const html = newValue.map((node) => serialize(node)).join("");
             onChangeValue(newValue, html);
           }
         }}

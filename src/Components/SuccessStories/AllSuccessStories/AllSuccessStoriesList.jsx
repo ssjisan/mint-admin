@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import axios from "axios";
+import axios from "../../../api/axios";
 import { Box, Table } from "@mui/material";
 import toast from "react-hot-toast";
 import CustomeHeader from "../../Common/Table/CustomeHeader";

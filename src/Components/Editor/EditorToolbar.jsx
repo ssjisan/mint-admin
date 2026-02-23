@@ -19,6 +19,7 @@ import {
   EditorRight,
   EditorUnderline,
 } from "../../assets/editor/EditorIcons";
+import { useRef } from "react";
 
 const editorToolIconStyle = {
   width: "24px",
@@ -46,6 +47,7 @@ export default function EditorToolbar({
   isBlockActive,
   isAlignActive,
 }) {
+  const fileInputRef = useRef(null);
   return (
     <Stack
       flexWrap="wrap"
@@ -211,7 +213,7 @@ export default function EditorToolbar({
       <Stack>
         <IconButton
           sx={editorToolIconStyle}
-          onClick={() => document.getElementById("image-upload").click()}
+          onClick={() => fileInputRef.current.click()}
         >
           <EditorImage size="16px" color="#1c252e" />
           <input
@@ -219,6 +221,7 @@ export default function EditorToolbar({
             type="file"
             accept="image/*"
             style={{ display: "none" }}
+            ref={fileInputRef}
             onChange={async (e) => {
               const file = e.target.files[0];
               if (file) {

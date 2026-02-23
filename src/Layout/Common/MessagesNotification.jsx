@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import axios from "axios";
+import axios from "../../api/axios";
 import MessageInformation from "./MessageInformation";
 import { CheckRead, Mail } from "../../assets/IconSet";
 import { Link } from "react-router-dom";
