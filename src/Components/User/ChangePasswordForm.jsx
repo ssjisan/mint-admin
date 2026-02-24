@@ -30,27 +30,54 @@ export default function ChangePasswordForm() {
   const navigate = useNavigate();
 
   const handleChangePassword = async () => {
-    setLoading(true);
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      toast.error("All fields are required");
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      toast.error("New password and confirm password do not match");
+      return;
+    }
+
     try {
-      const { data } = await axios.post("/change-password", {
-        oldPassword,
-        newPassword,
-        confirmPassword,
-      });
-      if (data?.error) {
-        toast.error(data.error);
-      } else {
-        toast.success(data.message || "Password changed successfully!");
-        setAuth({ ...auth, user: null, token: "" });
-        localStorage.removeItem("auth");
+      setLoading(true);
+
+      const storedAuth = JSON.parse(sessionStorage.getItem("auth"));
+      const token = storedAuth?.token;
+
+      if (!token) {
+        toast.error("Session expired. Please login again.");
         navigate("/login");
+        return;
       }
+
+      await axios.post(
+        "/change-password",
+        {
+          currentPassword: oldPassword,
+          newPassword,
+          confirmPassword,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      toast.success("Password changed successfully");
+
+      // Clear session properly
+      sessionStorage.removeItem("auth");
+
+      setAuth({ user: null, token: "" });
+
+      navigate("/login");
     } catch (error) {
-      if (error.response?.status === 401) {
-        toast.error("Unauthorized. Please log in again.");
-      } else {
-        toast.error(error.response?.data?.error || "Something went wrong.");
-      }
+      const message = error.response?.data?.message || "Something went wrong";
+
+      toast.error(message);
     } finally {
       setLoading(false);
     }

@@ -1,29 +1,23 @@
 import {
   Button,
-  FormControl,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  MenuItem,
-  OutlinedInput,
-  Select,
+  FormControlLabel,
   Stack,
+  Switch,
   TextField,
 } from "@mui/material";
-import { useContext, useState } from "react";
-import { DataContext } from "../../../DataProcessing/DataProcessing";
-import { ArrowDown, EyeOff, EyeOn } from "../../../assets/IconSet";
+import { useState } from "react";
+
 import toast from "react-hot-toast";
 import axios from "../../../api/axios";
 import { useNavigate } from "react-router-dom";
 export default function AddUserForm() {
-  const { showPassword, handleClickShowPassword, handleMouseDownPassword } =
-    useContext(DataContext);
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState(1);
+  const [isActive, setIsActive] = useState(true);
+
+  const password = "12345678";
+  const role = 0;
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -33,6 +27,7 @@ export default function AddUserForm() {
         email,
         password,
         role,
+        isActive,
       });
       if (data?.error) {
         toast.error(data.error);
@@ -41,7 +36,7 @@ export default function AddUserForm() {
         navigate("/user_list");
       }
     } catch (err) {
-      toast.error(err.message);
+      toast.error(err.response?.data?.message);
     }
   };
   return (
@@ -64,57 +59,16 @@ export default function AddUserForm() {
           setEmail(e.target.value);
         }}
       />
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Role</InputLabel>
-        <Select
-          value={role}
-          label="Role"
-          onChange={(e) => setRole(e.target.value)}
-          popupIcon={<ArrowDown color="#727373" size={24} />}
-          MenuProps={{
-            PaperProps: {
-              sx: {
-                mt: "8px",
-                borderRadius: "12px",
-                p: "0px 8px",
-              },
-            },
-          }}
-        >
-          <MenuItem value={1} sx={{ borderRadius: "8px" }}>
-            Admin
-          </MenuItem>
-          <MenuItem value={2} sx={{ borderRadius: "8px" }}>
-            Moderator
-          </MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl sx={{}} variant="outlined">
-        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-        <OutlinedInput
-          id="password"
-          type={showPassword ? "text" : "password"}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          endAdornment={
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={handleClickShowPassword}
-                onMouseDown={handleMouseDownPassword}
-                edge="end"
-              >
-                {showPassword ? (
-                  <EyeOff color="#918EAF" size="24px" />
-                ) : (
-                  <EyeOn color="#918EAF" size="24px" />
-                )}
-              </IconButton>
-            </InputAdornment>
-          }
-          label="Password"
-        />
-      </FormControl>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={isActive}
+            onChange={(e) => setIsActive(e.target.checked)}
+            color="primary"
+          />
+        }
+        label={isActive ? "Active" : "Inactive"}
+      />
       <Button variant="contained" color="primary" type="submit">
         Create
       </Button>

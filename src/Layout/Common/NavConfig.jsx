@@ -4,6 +4,7 @@ import {
   ConnectionRequest,
   SuccessStories,
   Product,
+  Users,
 } from "../../assets/IconSet";
 
 const navConfig = ({ pathname }) => [
@@ -113,6 +114,30 @@ const navConfig = ({ pathname }) => [
       {
         title: "Package List",
         link: "/package-list",
+      },
+    ],
+  },
+  {
+    title: "User",
+    icon: (
+      <Users
+        color={
+          pathname.startsWith("/create_user") ||
+          pathname.startsWith("/user_list")
+            ? "#792df8"
+            : "#637381"
+        }
+        size={20}
+      />
+    ),
+    items: [
+      {
+        title: "Create User",
+        link: "/create_use",
+      },
+      {
+        title: "User List",
+        link: "/user_list",
       },
     ],
   },

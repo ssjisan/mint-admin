@@ -20,6 +20,7 @@ import Brand from "../Page/Brand";
 import Category from "../Page/Category";
 import ProductSetup from "../Page/Product/ProductSetup";
 import ProductPreview from "../Page/Product/ProductPreview";
+import PasswordChange from "../UserAuth/PasswordChange";
 export default function MainRouters() {
   return (
     <>
@@ -49,6 +50,7 @@ export default function MainRouters() {
       />
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/password-change" element={<PasswordChange />} />
         <Route path="" element={<PrivateRoute />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/brands" element={<Brand />} />

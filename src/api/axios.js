@@ -27,9 +27,17 @@ API.interceptors.request.use(
 API.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    const status = error.response?.status;
+    const requestUrl = error.config?.url;
+
+    // 🚫 Do NOT auto redirect if the request itself is login
+    const isLoginRequest = requestUrl?.includes("/login");
+
+    if (status === 401 && !isLoginRequest) {
       sessionStorage.removeItem("auth");
-      window.location.href = "/login";
+
+      // Better than window.location.href
+      window.location.replace("/login");
     }
 
     return Promise.reject(error);

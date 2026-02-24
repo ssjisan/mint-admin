@@ -25,7 +25,7 @@ export default function InputFields() {
   const forBelow776 = useMediaQuery("(max-width:776px)");
   const { showPassword, handleClickShowPassword, handleMouseDownPassword } =
     useContext(DataContext);
-
+  const [lockSeconds, setLockSeconds] = useState(0);
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const [password, setPassword] = useState("");
@@ -43,6 +43,28 @@ export default function InputFields() {
       setEmail(storedEmail);
     }
   }, []);
+
+  useEffect(() => {
+    if (lockSeconds <= 0) return;
+
+    const timer = setInterval(() => {
+      setLockSeconds((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [lockSeconds]);
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -88,8 +110,32 @@ export default function InputFields() {
       toast.success("Login Successful");
       navigate("/");
     } catch (err) {
+      const response = err.response;
+
+      if (response?.status === 423) {
+        const seconds = response.data.remainingSeconds;
+
+        setLockSeconds(seconds);
+        setErrorMessage(`Account locked. Try again later.`);
+
+        return;
+      }
+      if (response?.status === 403 && response?.data?.forcePasswordChange) {
+        sessionStorage.setItem(
+          "auth",
+          JSON.stringify({
+            token: response.data.token,
+            user: response.data.user,
+          }),
+        );
+
+        toast.error("You must change your password");
+        navigate("/password-change");
+        return;
+      }
+
       const message =
-        err.response?.data?.error || "Login failed. Please try again.";
+        response?.data?.message || "Login failed. Please try again.";
 
       setErrorMessage(message);
     } finally {
@@ -107,7 +153,7 @@ export default function InputFields() {
         gap: "32px",
         width: "100%",
         mt: "40px",
-        mb: forBelow776 ? "80px" : "160px",
+        mb: forBelow776 ? "20px" : "40px",
       }}
     >
       <Stack gap="24px">
@@ -178,8 +224,16 @@ export default function InputFields() {
           />
         </FormGroup>
 
-        <Button variant="contained" type="submit" disabled={loading}>
-          {loading ? "Logging in..." : "Login"}
+        <Button
+          variant="contained"
+          type="submit"
+          disabled={loading || lockSeconds > 0}
+        >
+          {lockSeconds > 0
+            ? `Locked (${formatTime(lockSeconds)})`
+            : loading
+              ? "Logging in..."
+              : "Login"}
         </Button>
       </Stack>
     </Box>

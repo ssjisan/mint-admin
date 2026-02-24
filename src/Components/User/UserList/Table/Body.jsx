@@ -55,14 +55,7 @@ export default function Body({
           <TableRow key={data.id}>
             <TableCell align="left">{data.name}</TableCell>
             <TableCell align="left">{data.email}</TableCell>
-            <TableCell align="left">
-              {" "}
-              {data.role === 0
-                ? "Super Admin"
-                : data.role === 1
-                  ? "Admin"
-                  : "Moderator"}
-            </TableCell>
+            <TableCell align="left">Admin</TableCell>
             <TableCell align="center">
               <Tooltip title="actions">
                 <IconButton
