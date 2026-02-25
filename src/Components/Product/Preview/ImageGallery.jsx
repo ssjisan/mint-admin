@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
+import PropTypes from "prop-types";
 
 export default function ImageGallery({ images = [] }) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -21,7 +22,7 @@ export default function ImageGallery({ images = [] }) {
       {/* Main Image */}
       <Box
         sx={{
-          width: 480,
+          width: "100%",
           height: 480,
           border: "1px solid #e0e0e0",
           borderRadius: 2,
@@ -38,7 +39,7 @@ export default function ImageGallery({ images = [] }) {
           style={{
             width: "100%",
             height: "100%",
-            objectFit: "contain",
+            objectFit: "cover",
           }}
         />
       </Box>
@@ -84,3 +85,18 @@ export default function ImageGallery({ images = [] }) {
     </Box>
   );
 }
+ImageGallery.propTypes = {
+  images: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.shape({
+          $oid: PropTypes.string,
+        }),
+      ]),
+      url: PropTypes.string.isRequired,
+      alt: PropTypes.string,
+      isPrimary: PropTypes.bool,
+    }),
+  ),
+};

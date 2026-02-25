@@ -3,9 +3,6 @@ import axios from "axios";
 const API = axios.create({
   baseURL: import.meta.env.VITE_SERVER_API,
   withCredentials: false,
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 // 🔐 Request interceptor (attach token automatically)

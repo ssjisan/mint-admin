@@ -27,7 +27,8 @@ export default function PasswordChangeFields() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleChangePassword = async (e) => {
@@ -146,10 +147,24 @@ export default function PasswordChangeFields() {
         <FormControl variant="outlined" required>
           <InputLabel>New Password</InputLabel>
           <OutlinedInput
-            type={showPassword ? "text" : "password"}
+            type={showNewPassword ? "text" : "password"}
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             label="New Password"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShowNewPassword(!showNewPassword)}
+                  edge="end"
+                >
+                  {showNewPassword ? (
+                    <EyeOn color="#918EAF" size="24px" />
+                  ) : (
+                    <EyeOff color="#918EAF" size="24px" />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            }
           />
         </FormControl>
 
@@ -157,10 +172,24 @@ export default function PasswordChangeFields() {
         <FormControl variant="outlined" required>
           <InputLabel>Confirm New Password</InputLabel>
           <OutlinedInput
-            type={showPassword ? "text" : "password"}
+            type={showConfirmPassword ? "text" : "password"}
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             label="Confirm New Password"
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  edge="end"
+                >
+                  {showConfirmPassword ? (
+                    <EyeOn color="#918EAF" size="24px" />
+                  ) : (
+                    <EyeOff color="#918EAF" size="24px" />
+                  )}
+                </IconButton>
+              </InputAdornment>
+            }
           />
         </FormControl>
       </Stack>

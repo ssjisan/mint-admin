@@ -178,10 +178,15 @@ export default function InputFields() {
         <TextField
           label="Your Email"
           type="email"
+          name="email"
+          autoComplete="username"
           value={email}
           fullWidth
           onChange={(e) => setEmail(e.target.value)}
           required
+          inputProps={{
+            autoComplete: "email",
+          }}
         />
 
         <FormControl variant="outlined" required>
@@ -189,7 +194,12 @@ export default function InputFields() {
           <OutlinedInput
             type={showPassword ? "text" : "password"}
             value={password}
+            name="password"
+            autoComplete="current-password"
             onChange={(e) => setPassword(e.target.value)}
+            inputProps={{
+              autoComplete: "current-password",
+            }}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
