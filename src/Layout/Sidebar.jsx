@@ -72,7 +72,7 @@ function Sidebar(props) {
               section.items.some((item) => pathname === item.link) ||
               (section.extraActivePaths &&
                 section.extraActivePaths.some((path) =>
-                  pathname.startsWith(path)
+                  pathname.startsWith(path),
                 ));
 
             return section.items.length === 1 ? (
@@ -88,7 +88,7 @@ function Sidebar(props) {
                   padding: "8px 16px",
                   height: "44px",
                   mb: "8px",
-                   
+
                   background:
                     pathname === section.items[0].link &&
                     "rgba(239, 229, 255, 1)",

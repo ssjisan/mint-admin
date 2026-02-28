@@ -21,6 +21,9 @@ import Category from "../Page/Category";
 import ProductSetup from "../Page/Product/ProductSetup";
 import ProductPreview from "../Page/Product/ProductPreview";
 import PasswordChange from "../UserAuth/PasswordChange";
+import Pages from "../Page/Pages/Pages";
+import CreatePages from "../Page/Pages/CreatePages";
+import PreOrder from "../Page/PreOrder";
 export default function MainRouters() {
   return (
     <>
@@ -59,8 +62,12 @@ export default function MainRouters() {
           <Route path="/product-setup/:id" element={<ProductSetup />} />
           <Route path="/product-list" element={<ProductList />} />
           <Route path="/product/:id" element={<ProductPreview />} />
+          <Route path="/pages" element={<Pages />} />
+          <Route path="/pages-steup" element={<CreatePages />} />
 
           <Route path="/connection-request" element={<ConnectionRequest />} />
+          <Route path="/pre-order" element={<PreOrder />} />
+
           {/* User Routes Start */}
           <Route path="/create_use" element={<AddUser />} />
           <Route path="change_password" element={<ChangePassword />} />

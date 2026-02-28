@@ -123,6 +123,9 @@ export default function Body({
                 <TableCell sx={{ fontSize: "14px", padding: "10px 16px" }}>
                   {data?.packageType}
                 </TableCell>
+                <TableCell sx={{ fontSize: "14px", padding: "10px 16px" }}>
+                  {data?.referral ? "Yes" : "No"}
+                </TableCell>
                 <TableCell
                   sx={{
                     fontSize: "14px",

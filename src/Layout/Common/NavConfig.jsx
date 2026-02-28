@@ -36,6 +36,21 @@ const navConfig = ({ pathname }) => [
     ],
   },
   {
+    title: "Pre Order",
+    icon: (
+      <ConnectionRequest
+        color={pathname === "/pre-order" ? "#792df8" : "#637381"}
+        size={20}
+      />
+    ),
+    items: [
+      {
+        title: "Pre Order",
+        link: "/pre-order",
+      },
+    ],
+  },
+  {
     title: "Product",
     icon: (
       <Product
