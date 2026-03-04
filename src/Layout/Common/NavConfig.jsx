@@ -5,6 +5,8 @@ import {
   SuccessStories,
   Product,
   Users,
+  PreOrder,
+  SalesSupport,
 } from "../../assets/IconSet";
 
 const navConfig = ({ pathname }) => [
@@ -38,7 +40,7 @@ const navConfig = ({ pathname }) => [
   {
     title: "Pre Order",
     icon: (
-      <ConnectionRequest
+      <PreOrder
         color={pathname === "/pre-order" ? "#792df8" : "#637381"}
         size={20}
       />
@@ -50,6 +52,22 @@ const navConfig = ({ pathname }) => [
       },
     ],
   },
+  {
+    title: "Custom Request",
+    icon: (
+      <SalesSupport
+        color={pathname === "/custom-request" ? "#792df8" : "#637381"}
+        size={20}
+      />
+    ),
+    items: [
+      {
+        title: "Custom Request",
+        link: "/custom-request",
+      },
+    ],
+  },
+
   {
     title: "Product",
     icon: (

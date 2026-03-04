@@ -20,6 +20,7 @@ export default function SetupForm() {
   const isEditMode = Boolean(id);
 
   const [published, setPublished] = useState(true);
+  const [featured, setFeatured] = useState(false);
   const navigate = useNavigate();
 
   const [brands, setBrands] = useState([]);
@@ -228,7 +229,7 @@ export default function SetupForm() {
         const primaryIndex = (product.images || []).findIndex(
           (img) => img.isPrimary === true,
         );
-
+        setFeatured(product.featured || false);
         setThumbnailIndex(primaryIndex !== -1 ? primaryIndex : null);
         // Description
         // setDescriptionEditorValue(initialJSON);
@@ -282,6 +283,7 @@ export default function SetupForm() {
       data.append("brand", formData.brand);
       data.append("category", formData.category);
       data.append("isPublished", published);
+      data.append("featured", featured);
       data.append("price", Number(formData.price));
       data.append("showPrice", formData.showPrice);
       data.append("descriptionHTML", descriptionHtmlOutput);
@@ -411,7 +413,15 @@ export default function SetupForm() {
           }
           label="Published"
         />
-
+        <FormControlLabel
+          control={
+            <Switch
+              checked={featured}
+              onChange={() => setFeatured(!featured)}
+            />
+          }
+          label="Featured"
+        />
         <Button variant="contained" size="large" onClick={handleSubmit}>
           {isEditMode ? "Update Product" : "Submit Product"}
         </Button>

@@ -24,11 +24,10 @@ export default function View() {
 
   const columns = [
     { key: "customer", label: "Customer" },
-    { key: "product", label: "Product" },
-    { key: "brand", label: "Brand" },
-    { key: "category", label: "Category" },
-    { key: "quantity", label: "Qty" },
-    { key: "finalPrice", label: "Total" },
+    { key: "serviceName", label: "Service" },
+    { key: "phone", label: "phone" },
+    { key: "email", label: "Email" },
+    { key: "message", label: "Message" },
     { key: "status", label: "Status" },
   ];
 
@@ -63,7 +62,7 @@ export default function View() {
         Object.entries(filters).filter(([_, v]) => v !== ""),
       );
       const params = new URLSearchParams(cleanFilters).toString();
-      const res = await axios.get(`/pre-orders?${params}`);
+      const res = await axios.get(`/custom-support-list?${params}`);
 
       setPreOrders(res.data.data || []);
     } catch (err) {
@@ -83,7 +82,7 @@ export default function View() {
     const toastId = toast.loading("Updating status...");
 
     try {
-      await axios.patch(`/pre-orders/${selectedRowId}/status`, {
+      await axios.patch(`/support/${selectedRowId}/status`, {
         status: selectedStatus,
         remarks: remarksFromModal,
       });

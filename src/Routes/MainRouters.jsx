@@ -24,6 +24,7 @@ import PasswordChange from "../UserAuth/PasswordChange";
 import Pages from "../Page/Pages/Pages";
 import CreatePages from "../Page/Pages/CreatePages";
 import PreOrder from "../Page/PreOrder";
+import CustomeRequest from "../Page/CustomRequest";
 export default function MainRouters() {
   return (
     <>
@@ -67,6 +68,7 @@ export default function MainRouters() {
 
           <Route path="/connection-request" element={<ConnectionRequest />} />
           <Route path="/pre-order" element={<PreOrder />} />
+          <Route path="/custom-request" element={<CustomeRequest />} />
 
           {/* User Routes Start */}
           <Route path="/create_use" element={<AddUser />} />

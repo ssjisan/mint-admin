@@ -78,14 +78,13 @@ export default function Body({
                   </IconButton>
                 </TableCell>
 
-                <TableCell>{data.customer?.name}</TableCell>
+                <TableCell>{data.name}</TableCell>
 
-                <TableCell>{data.product?.name}</TableCell>
-                <TableCell>{data.product?.brand?.name || "N/A"}</TableCell>
-                <TableCell>{data.product?.category?.name || "N/A"}</TableCell>
+                <TableCell>{data.serviceName}</TableCell>
+                <TableCell>{data.phone}</TableCell>
+                <TableCell>{data.email}</TableCell>
 
-                <TableCell>{data.quantity}</TableCell>
-                <TableCell>৳ {data.finalPrice}</TableCell>
+                <TableCell>{data.message}</TableCell>
 
                 <TableCell>
                   <Box
@@ -156,16 +155,12 @@ export default function Body({
             onClick: () => handleOpenStatusModal(selectedRowId, "pending"),
           },
           {
-            label: "Confirmed",
-            onClick: () => handleOpenStatusModal(selectedRowId, "confirmed"),
+            label: "In Progress",
+            onClick: () => handleOpenStatusModal(selectedRowId, "in_progress"),
           },
           {
-            label: "Completed",
-            onClick: () => handleOpenStatusModal(selectedRowId, "completed"),
-          },
-          {
-            label: "Cancelled",
-            onClick: () => handleOpenStatusModal(selectedRowId, "cancelled"),
+            label: "Resolved",
+            onClick: () => handleOpenStatusModal(selectedRowId, "resolved"),
           },
         ]}
       />
