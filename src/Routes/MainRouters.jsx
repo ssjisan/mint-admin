@@ -26,6 +26,9 @@ import CreatePages from "../Page/Pages/CreatePages";
 import PreOrder from "../Page/PreOrder";
 import CustomeRequest from "../Page/CustomRequest";
 import KpiCategory from "../Page/Survey/KpiCategory";
+import SurveyKpi from "../Page/Survey/SurveyKpi";
+import SurveyQuestionSetup from "../Page/Survey/SurveyQuestionSetup";
+import SurveyTemplateSetup from "../Page/Survey/SurveyTemplateSetup";
 export default function MainRouters() {
   return (
     <>
@@ -108,6 +111,9 @@ export default function MainRouters() {
           />
           {/* Survey */}
           <Route path="/kpi-category" element={<KpiCategory />} />
+          <Route path="/survey-kpi" element={<SurveyKpi />} />
+          <Route path="/survey-question" element={<SurveyQuestionSetup />} />
+          <Route path="/survey-template" element={<SurveyTemplateSetup />} />
         </Route>
         {/* <Route path="*" element={<ErrorPage />} replace /> */}
       </Routes>

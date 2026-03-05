@@ -72,7 +72,14 @@ const navConfig = ({ pathname }) => [
     title: "Survey",
     icon: (
       <Survey
-        color={pathname.startsWith("/kpi-category") ? "#792df8" : "#637381"}
+        color={
+          pathname.startsWith("/kpi-category") ||
+          pathname.startsWith("/survey-kpi") ||
+          pathname.startsWith("/survey-question") ||
+          pathname.startsWith("/survey-template")
+            ? "#792df8"
+            : "#637381"
+        }
         size={20}
       />
     ),
@@ -80,6 +87,18 @@ const navConfig = ({ pathname }) => [
       {
         title: "Kpi Category",
         link: "/kpi-category",
+      },
+      {
+        title: "Survey Kpi",
+        link: "/survey-kpi",
+      },
+      {
+        title: "Question Setup",
+        link: "/survey-question",
+      },
+      {
+        title: "Template Setup",
+        link: "/survey-template",
       },
     ],
   },
