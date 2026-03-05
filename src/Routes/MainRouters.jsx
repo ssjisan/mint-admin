@@ -25,6 +25,7 @@ import Pages from "../Page/Pages/Pages";
 import CreatePages from "../Page/Pages/CreatePages";
 import PreOrder from "../Page/PreOrder";
 import CustomeRequest from "../Page/CustomRequest";
+import KpiCategory from "../Page/Survey/KpiCategory";
 export default function MainRouters() {
   return (
     <>
@@ -105,6 +106,8 @@ export default function MainRouters() {
             path="/success-stories-preview/:id"
             element={<SuccessStoriesPreview />}
           />
+          {/* Survey */}
+          <Route path="/kpi-category" element={<KpiCategory />} />
         </Route>
         {/* <Route path="*" element={<ErrorPage />} replace /> */}
       </Routes>

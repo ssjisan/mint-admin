@@ -7,6 +7,7 @@ import {
   Users,
   PreOrder,
   SalesSupport,
+  Survey,
 } from "../../assets/IconSet";
 
 const navConfig = ({ pathname }) => [
@@ -67,7 +68,21 @@ const navConfig = ({ pathname }) => [
       },
     ],
   },
-
+  {
+    title: "Survey",
+    icon: (
+      <Survey
+        color={pathname.startsWith("/kpi-category") ? "#792df8" : "#637381"}
+        size={20}
+      />
+    ),
+    items: [
+      {
+        title: "Kpi Category",
+        link: "/kpi-category",
+      },
+    ],
+  },
   {
     title: "Product",
     icon: (
