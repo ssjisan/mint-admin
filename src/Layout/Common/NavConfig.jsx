@@ -76,7 +76,8 @@ const navConfig = ({ pathname }) => [
           pathname.startsWith("/kpi-category") ||
           pathname.startsWith("/survey-kpi") ||
           pathname.startsWith("/survey-question") ||
-          pathname.startsWith("/survey-template")
+          pathname.startsWith("/survey-template") ||
+          pathname.startsWith("/survey-report")
             ? "#792df8"
             : "#637381"
         }
@@ -99,6 +100,10 @@ const navConfig = ({ pathname }) => [
       {
         title: "Template Setup",
         link: "/survey-template",
+      },
+      {
+        title: "Survey Report",
+        link: "/survey-report",
       },
     ],
   },

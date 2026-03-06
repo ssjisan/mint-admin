@@ -29,6 +29,7 @@ import KpiCategory from "../Page/Survey/KpiCategory";
 import SurveyKpi from "../Page/Survey/SurveyKpi";
 import SurveyQuestionSetup from "../Page/Survey/SurveyQuestionSetup";
 import SurveyTemplateSetup from "../Page/Survey/SurveyTemplateSetup";
+import SurveyReport from "../Page/Survey/SurveyReport";
 export default function MainRouters() {
   return (
     <>
@@ -114,6 +115,8 @@ export default function MainRouters() {
           <Route path="/survey-kpi" element={<SurveyKpi />} />
           <Route path="/survey-question" element={<SurveyQuestionSetup />} />
           <Route path="/survey-template" element={<SurveyTemplateSetup />} />
+          <Route path="/survey-report" element={<SurveyReport />} />
+          <Route path="/survey-dashboard" element={<SurveyTemplateSetup />} />
         </Route>
         {/* <Route path="*" element={<ErrorPage />} replace /> */}
       </Routes>

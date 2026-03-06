@@ -166,6 +166,17 @@ export default function ListView() {
     }
   };
 
+  const handleShare = async (id) => {
+    const url = `https://www.mint.com.bd/survey/${id}`;
+
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success("Link copied to clipboard!");
+    } catch (err) {
+      toast.error("Failed to copy link");
+    }
+  };
+
   return (
     <Box p={4}>
       <Typography variant="h4" mb={3}>
@@ -250,6 +261,14 @@ export default function ListView() {
               <TableCell>{item.isActive ? "Active" : "Inactive"}</TableCell>
               <TableCell>
                 <Stack direction="row" spacing={2}>
+                  <Button
+                    size="small"
+                    variant="outlined"
+                    color="info"
+                    onClick={() => handleShare(item._id)}
+                  >
+                    Share
+                  </Button>
                   <Button
                     size="small"
                     onClick={() => handleEdit(item)}
