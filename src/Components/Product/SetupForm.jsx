@@ -131,6 +131,7 @@ export default function SetupForm() {
     showPrice: true,
     discountType: "none",
     discountValue: "",
+    highlights: [""],
   });
 
   // ------------------ ------------------
@@ -254,6 +255,7 @@ export default function SetupForm() {
           showPrice: product.showPrice,
           discountType: product.discount?.type || "none",
           discountValue: product.discount?.value || "",
+          highlights: product.highlights?.length ? product.highlights : [""],
         });
 
         // Set specifications
@@ -293,7 +295,7 @@ export default function SetupForm() {
         "shortDescriptionJSON",
         JSON.stringify(shortDescriptionEditorValue),
       );
-
+      data.append("highlights", JSON.stringify(formData.highlights));
       data.append(
         "discount",
         JSON.stringify({
@@ -359,6 +361,32 @@ export default function SetupForm() {
     }
   };
 
+  const handleHighlightChange = (index, value) => {
+    const updated = [...formData.highlights];
+    updated[index] = value;
+
+    setFormData({
+      ...formData,
+      highlights: updated,
+    });
+  };
+
+  const addHighlight = () => {
+    setFormData({
+      ...formData,
+      highlights: [...formData.highlights, ""],
+    });
+  };
+
+  const removeHighlight = (index) => {
+    const updated = formData.highlights.filter((_, i) => i !== index);
+
+    setFormData({
+      ...formData,
+      highlights: updated.length ? updated : [""],
+    });
+  };
+
   if (loading) {
     return <Typography>Loading....</Typography>;
   }
@@ -385,6 +413,10 @@ export default function SetupForm() {
         setDescriptionHtmlOutput={setDescriptionHtmlOutput}
         descriptionEditorUploadedImages={descriptionEditorUploadedImages}
         setDescriptionEditorUploadedImages={setDescriptionEditorUploadedImages}
+        handleHighlightChange={handleHighlightChange}
+        highlights={formData.highlights}
+        removeHighlight={removeHighlight}
+        addHighlight={addHighlight}
       />
       <Image
         handleImageUpload={handleImageUpload}

@@ -1,4 +1,5 @@
 import {
+  Button,
   Card,
   CardContent,
   Grid,
@@ -27,6 +28,10 @@ export default function Basic({
   setShortDescriptionHtmlOutput,
   shortDescriptionEditorUploadedImages,
   setShortDescriptionEditorUploadedImages,
+  handleHighlightChange,
+  highlights,
+  removeHighlight,
+  addHighlight,
 }) {
   const cardStyle = {
     mb: 4,
@@ -100,6 +105,39 @@ export default function Basic({
             </TextField>
           </Grid>
           <Grid item xs={12}>
+            <Typography fontSize={14} fontWeight={700} mb={1}>
+              Product Highlights
+            </Typography>
+
+            <Stack spacing={2}>
+              {highlights.map((highlight, index) => (
+                <Stack key={index} direction="row" spacing={2}>
+                  <TextField
+                    fullWidth
+                    size="small"
+                    label={`Highlight ${index + 1}`}
+                    value={highlight}
+                    onChange={(e) =>
+                      handleHighlightChange(index, e.target.value)
+                    }
+                  />
+
+                  <Button
+                    color="error"
+                    variant="outlined"
+                    onClick={() => removeHighlight(index)}
+                  >
+                    Remove
+                  </Button>
+                </Stack>
+              ))}
+
+              <Button variant="outlined" onClick={addHighlight}>
+                Add Highlight
+              </Button>
+            </Stack>
+          </Grid>
+          <Grid item xs={12}>
             <Stack>
               <Typography fontSize={14} fontWeight={700}>
                 Short Description
@@ -140,6 +178,9 @@ export default function Basic({
   );
 }
 Basic.propTypes = {
+  // =======================
+  // Dropdown Data
+  // =======================
   brands: PropTypes.arrayOf(
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
@@ -154,6 +195,9 @@ Basic.propTypes = {
     }),
   ).isRequired,
 
+  // =======================
+  // Form Data
+  // =======================
   formData: PropTypes.shape({
     name: PropTypes.string,
     brand: PropTypes.string,
@@ -162,27 +206,41 @@ Basic.propTypes = {
 
   setFormData: PropTypes.func.isRequired,
 
+  // =======================
+  // Highlights
+  // =======================
+  highlights: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handleHighlightChange: PropTypes.func.isRequired,
+  removeHighlight: PropTypes.func.isRequired,
+  addHighlight: PropTypes.func.isRequired,
+
+  // =======================
+  // Short Description Editor
+  // =======================
+  shortDescriptionEditorKey: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+
+  shortDescriptionEditorValue: PropTypes.any,
+  setShortDescriptionEditorValue: PropTypes.func.isRequired,
+  setShortDescriptionHtmlOutput: PropTypes.func.isRequired,
+
+  shortDescriptionEditorUploadedImages: PropTypes.array,
+  setShortDescriptionEditorUploadedImages: PropTypes.func.isRequired,
+
+  // =======================
+  // Description Editor
+  // =======================
   descriptionEditorKey: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ]).isRequired,
 
   descriptionEditorValue: PropTypes.any,
-
   setDescriptionEditorValue: PropTypes.func.isRequired,
-
   setDescriptionHtmlOutput: PropTypes.func.isRequired,
 
   descriptionEditorUploadedImages: PropTypes.array,
-
   setDescriptionEditorUploadedImages: PropTypes.func.isRequired,
-  shortDescriptionEditorKey: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-  ]).isRequired,
-  shortDescriptionEditorValue: PropTypes.any,
-  setShortDescriptionEditorValue: PropTypes.func.isRequired,
-  setShortDescriptionHtmlOutput: PropTypes.func.isRequired,
-  shortDescriptionEditorUploadedImages: PropTypes.array,
-  setShortDescriptionEditorUploadedImages: PropTypes.func.isRequired,
 };

@@ -13,6 +13,7 @@ export default function ListTable() {
   const navigate = useNavigate();
 
   const columns = [
+    { key: "order", label: "Order" },
     { key: "name", label: "Name" },
     { key: "productCode", label: "Code" },
     { key: "brand", label: "Brand" },
@@ -87,6 +88,35 @@ export default function ListTable() {
     }
   };
 
+  const onDragEnd = async (result) => {
+    const { destination, source } = result;
+
+    if (!destination || source.index === destination.index) return;
+
+    const reorderedProducts = Array.from(products);
+    const [movedProduct] = reorderedProducts.splice(source.index, 1);
+    reorderedProducts.splice(destination.index, 0, movedProduct);
+
+    setProducts(reorderedProducts);
+
+    const reorderedIds = reorderedProducts.map((p) => p._id);
+
+    try {
+      const response = await axios.post("/update-product-order", {
+        reorderedProducts: reorderedIds,
+      });
+
+      if (response.data.success) {
+        setProducts(response.data.products);
+        toast.success("Product order updated successfully!");
+      } else {
+        toast.error(response.data.message || "Failed to update product order");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Network error: failed to update product order");
+    }
+  };
   return (
     <Box
       sx={{
@@ -101,7 +131,7 @@ export default function ListTable() {
         <CustomeHeader
           columns={columns}
           includeActions={true}
-          includeDrag={false}
+          includeDrag={true}
         />
 
         <Body
@@ -109,6 +139,7 @@ export default function ListTable() {
           handleOpenMenu={handleOpenMenu}
           handleCloseMenu={handleCloseMenu}
           open={open}
+          onDragEnd={onDragEnd}
           selectedRowId={selectedRowId}
           redirectEdit={redirectEdit}
           redirectPreview={redirectPreview}

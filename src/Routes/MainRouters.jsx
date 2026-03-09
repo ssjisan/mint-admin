@@ -30,6 +30,7 @@ import SurveyKpi from "../Page/Survey/SurveyKpi";
 import SurveyQuestionSetup from "../Page/Survey/SurveyQuestionSetup";
 import SurveyTemplateSetup from "../Page/Survey/SurveyTemplateSetup";
 import SurveyReport from "../Page/Survey/SurveyReport";
+import SurveyDashboard from "../Page/Survey/SurveyDashboard";
 export default function MainRouters() {
   return (
     <>
@@ -116,7 +117,7 @@ export default function MainRouters() {
           <Route path="/survey-question" element={<SurveyQuestionSetup />} />
           <Route path="/survey-template" element={<SurveyTemplateSetup />} />
           <Route path="/survey-report" element={<SurveyReport />} />
-          <Route path="/survey-dashboard" element={<SurveyTemplateSetup />} />
+          <Route path="/survey-dashbaord" element={<SurveyDashboard />} />
         </Route>
         {/* <Route path="*" element={<ErrorPage />} replace /> */}
       </Routes>
