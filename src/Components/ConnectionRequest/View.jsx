@@ -26,6 +26,7 @@ export default function View() {
     { key: "package", label: "Package" },
     { key: "packageType", label: "Type" },
     { key: "referral", label: "Referral" },
+    { key: "referraedBy", label: "Referred by" },
     { key: "status", label: "Status" },
     { key: "remarks", label: "Remarks" },
   ];

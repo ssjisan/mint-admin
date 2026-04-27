@@ -130,6 +130,15 @@ export default function Body({
                   sx={{
                     fontSize: "14px",
                     padding: "10px 16px",
+                    width: "160px",
+                  }}
+                >
+                  {data?.referral ? data?.referralName : "N/A"}
+                </TableCell>
+                <TableCell
+                  sx={{
+                    fontSize: "14px",
+                    padding: "10px 16px",
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "flex-start",
@@ -218,9 +227,11 @@ export default function Body({
                         </Typography>
                       )}
                       {data?.referral && (
-                        <Typography sx={{ gridColumn: "1/-1" }}>
-                          <strong>Referral Id:</strong> {data?.referralId}
-                        </Typography>
+                        <>
+                          <Typography sx={{ gridColumn: "1/-1" }}>
+                            <strong>Referral Id:</strong> {data?.referralId}
+                          </Typography>
+                        </>
                       )}
                     </Stack>
                   </Collapse>
