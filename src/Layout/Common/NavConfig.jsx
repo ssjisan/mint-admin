@@ -8,6 +8,7 @@ import {
   PreOrder,
   SalesSupport,
   Survey,
+  UserList,
 } from "../../assets/IconSet";
 
 const navConfig = ({ pathname }) => [
@@ -35,6 +36,21 @@ const navConfig = ({ pathname }) => [
       {
         title: "Connection Request",
         link: "/connection-request",
+      },
+    ],
+  },
+  {
+    title: "Referral",
+    icon: (
+      <UserList
+        color={pathname === "/referral" ? "#792df8" : "#637381"}
+        size={20}
+      />
+    ),
+    items: [
+      {
+        title: "Referral",
+        link: "/referral",
       },
     ],
   },

@@ -31,6 +31,7 @@ import SurveyQuestionSetup from "../Page/Survey/SurveyQuestionSetup";
 import SurveyTemplateSetup from "../Page/Survey/SurveyTemplateSetup";
 import SurveyReport from "../Page/Survey/SurveyReport";
 import SurveyDashboard from "../Page/Survey/SurveyDashboard";
+import Referral from "../Page/Referral";
 export default function MainRouters() {
   return (
     <>
@@ -113,6 +114,8 @@ export default function MainRouters() {
           />
           {/* Survey */}
           <Route path="/kpi-category" element={<KpiCategory />} />
+          <Route path="/referral" element={<Referral />} />
+
           <Route path="/survey-kpi" element={<SurveyKpi />} />
           <Route path="/survey-question" element={<SurveyQuestionSetup />} />
           <Route path="/survey-template" element={<SurveyTemplateSetup />} />

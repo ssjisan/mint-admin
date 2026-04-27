@@ -29,6 +29,7 @@ export default function View() {
     { key: "status", label: "Status" },
     { key: "remarks", label: "Remarks" },
   ];
+  const [searchText, setSearchText] = useState("");
 
   const [packages, setPackages] = useState([]);
   const [connectionRequests, setConnectionRequests] = useState([]);
@@ -49,13 +50,12 @@ export default function View() {
   // Filter Drawer States
   const [openFilter, setOpenFilter] = useState(false);
   const [filterValues, setFilterValues] = useState({
-    status: "", // default pending
+    status: "",
     package: "",
-    packageType: "",
+    referral: "", // 👈 NEW
     startDate: dayjs().startOf("month").format("YYYY-MM-DD"),
     endDate: dayjs().endOf("month").format("YYYY-MM-DD"),
   });
-
   const handleOpenStatusModal = (rowId, status) => {
     setSelectedRowId(rowId);
     setSelectedStatus(status);
@@ -66,15 +66,26 @@ export default function View() {
   // Load all connection requests with optional filters
   const loadConnectionRequests = async (filters = {}) => {
     try {
-      const params = new URLSearchParams(filters).toString();
+      const params = new URLSearchParams({
+        ...filters,
+        search: searchText, // 👈 include search
+      }).toString();
+
       const res = await axios.get(`/connection-requests?${params}`);
       const data = Array.isArray(res.data) ? res.data : [];
+
       setConnectionRequests(data);
     } catch (err) {
       toast.error("Failed to load connection requests");
     }
   };
+  useEffect(() => {
+    const delay = setTimeout(() => {
+      loadConnectionRequests(filterValues);
+    }, 400);
 
+    return () => clearTimeout(delay);
+  }, [searchText]);
   const loadPackages = async () => {
     try {
       const res = await axios.get("/packages");
@@ -141,8 +152,15 @@ export default function View() {
       <Stack
         sx={{ py: 2, width: "100%" }}
         flexDirection="row"
-        justifyContent="flex-end"
+        justifyContent="space-between"
       >
+        <TextField
+          placeholder="Search by name, phone, email, referral ID..."
+          size="small"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          sx={{ width: 360 }}
+        />
         <Button
           sx={{ color: "#060415", width: "fit-content" }}
           onClick={() => setOpenFilter(true)}
@@ -277,7 +295,24 @@ export default function View() {
             <MenuItem value="residential">RESIDENTIAL</MenuItem>
             <MenuItem value="corporate">Corporate</MenuItem>
           </TextField> */}
-
+          <TextField
+            select
+            fullWidth
+            size="small"
+            label="Referral"
+            sx={{ mb: 2 }}
+            value={filterValues.referral || "all"}
+            onChange={(e) =>
+              setFilterValues({
+                ...filterValues,
+                referral: e.target.value === "all" ? "" : e.target.value,
+              })
+            }
+          >
+            <MenuItem value="all">All</MenuItem>
+            <MenuItem value="true">Yes</MenuItem>
+            <MenuItem value="false">No</MenuItem>
+          </TextField>
           <Divider sx={{ my: 2 }} />
           <Typography variant="subtitle2" mb={1}>
             Date Range

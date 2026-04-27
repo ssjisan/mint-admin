@@ -217,6 +217,11 @@ export default function Body({
                           <strong>Address:</strong> {data?.fullAddress}
                         </Typography>
                       )}
+                      {data?.referral && (
+                        <Typography sx={{ gridColumn: "1/-1" }}>
+                          <strong>Referral Id:</strong> {data?.referralId}
+                        </Typography>
+                      )}
                     </Stack>
                   </Collapse>
                 </TableCell>
